@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View , TextInput,Button} from 'react-native';
+import { StyleSheet, Text, View , TextInput,Button, TouchableOpacity} from 'react-native';
 
 export default class App extends React.Component {
   state={
@@ -25,18 +25,22 @@ export default class App extends React.Component {
   renderTodos = () =>{
     return this.state.todo.map(t=>{
       return (
-        <Text 
-          key={t}
+       <TouchableOpacity key={t}>        
+         <Text 
+          style={styles.todo}
           onPress={()=>{this.deleteTodo(t)}}
-        >{t}</Text>
+          >{t}</Text>
+        </TouchableOpacity>
+
       )
     })
   }
 
   render() {
     return (
+      <View style={styles.wholeStyle}>
       <View style={styles.viewStyle}>
-        <Text>Open up App.js to start working on your app!!</Text>
+        <Text style={styles.header}>Notes App</Text>
         <TextInput 
           style={styles.inputStyle}
           onChangeText={(text)=>this.setState({text})}
@@ -47,23 +51,40 @@ export default class App extends React.Component {
           color="green"
           onPress={this.addTodo}
          />
+         <View style={{marginTop: 40}} />
          {this.renderTodos()}
+      </View>
       </View>
     );
   }
 }
 
 const styles = {
+  wholeStyle:{
+    backgroundColor : "#0288D1",
+    flex:1
+  },
   viewStyle: {
-    flex: 1,
+    marginTop: 30,
     alignItems: 'center',
     justifyContent: 'center',
+    margin :10
   },
   inputStyle:{
     height: 40,
     width: "50%" ,
-    borderColor:"green",
-    borderWidth: 1
+    borderColor:"white",
+    borderWidth: 1,
+    margin:10
+  },
+  header:{
+    fontSize:30,
+    color:"white",
+    fontWeight: "bold"
+  },
+  todo:{
+    fontSize: 24,
+    color: 'white'
   }
 };
 
